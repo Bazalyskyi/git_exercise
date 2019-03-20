@@ -1,18 +1,17 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
 #include <iostream>
 #include <vector>
 #include <stdio.h>
-#include <queue>
+#include <stack>
 #include <string>
 using namespace std;
 
 
 int main()
 {
-	queue<int> dataStack;
+	stack<int> dataStack;
 	bool found = true;
 	int size = 0;
 	while (found == true) {
@@ -30,7 +29,7 @@ int main()
 			dataStack.pop();
 			size--;
 		}
-		if (operation == "front") {
+		if (operation == "back") {
 			cout << dataStack.top() << endl;
 
 		}
