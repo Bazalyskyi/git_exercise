@@ -1,56 +1,58 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include "pch.h"
 #include <iostream>
 #include <vector>
-#include <stdio.h>
-#include <queue>
-#include <string>
+#include <math.h>
+#include <cstdlib>
+
+
 using namespace std;
 
-
-int main()
+void margeSort(vector<int>&myVector, int l, int r)
 {
-	queue<int> dataStack;
-	bool found = true;
-	int size = 0;
-	while (found == true) {
-		string operation;
-		cin >> operation;
-		if (operation == "push") {
-			int value;
-			cin >> value;
-			dataStack.push(value);
-			size++;
-			cout << "ok" << endl;
-		}
-		if (operation == "pop") {
-			cout << dataStack.top() << endl;
-			dataStack.pop();
-			size--;
-		}
-		if (operation == "front") {
-			cout << dataStack.top() << endl;
+	if (l == r)
+	{
+		return;
+	}
+	int m = (l + r) / 2;
+	margeSort(myVector, l, m);
+	margeSort(myVector, m + 1, r);
+	int point1 = l;
+	int point2 = m + 1;
+	vector<int> res;
+	for (int i = 0; i < r - l + 1; ++i)
+	{
+		if ((point1 <= m) && ((point2 > r) || (myVector[point1] < myVector[point2])))
+		{
+			res.push_back(myVector[point1]);
+			point1++;
 
 		}
-		if (operation == "size") {
-			cout << size << endl;
+		else
+		{
+			res.push_back(myVector[point2]);
+			point2++;
 		}
-		if (operation == "clear") {
-			while (size > 0)
-			{
-				dataStack.pop();
-				size--;
-			}
-			cout << "ok" << endl;
-		}
-		if (operation == "exit") {
-			found = false;
-			cout << "bye" << endl;
-		}
-
 
 	}
 
+	for (int i = 0; i < res.size(); i++)
+	{
+		myVector[i + l] = res[i];
+	}
+}
+
+int main()
+{
+	int arr1;
+	cin >> arr1;
+	vector<int> myVector(arr1);
+	for (int i = 0; i < arr1; i++)
+	{
+		cin >> myVector[i];
+	}
+	margeSort(myVector, 0, arr1 - 1);
+	for (int i = 0; i < arr1; i++)
+	{
+		cout << myVector[i];
+		cout << " ";
+	}
 }
